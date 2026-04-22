@@ -10,10 +10,9 @@ function initSocket(server) {
   });
 
   io.on("connection", (socket) => {
-    console.log(`user connected ${socket.id}`);
 
     // ENTRAR NUM CHAT
-    socket.on("join", async ({ chat_id, password }) => {
+    /*socket.on("join", async ({ chat_id, password }) => {
       const chat = await Chat.getChatForLogin(chat_id);
 
       if (!chat) {
@@ -34,14 +33,8 @@ function initSocket(server) {
 
       socket.join(`chat_${chat_id}`);
       socket.emit("join_success", { chat_id });
-    });
+    });*/
 
-
-    //TESTE DE ESTAR DENTRO DO CHAT
-    socket.on('teste_entrar', (id)=>{
-      console.log(`Alguem entrou no chat: chat_${id}`);
-      socket.join(`chat_${id}`);
-    })
 
     // MENSAGEM
     socket.on("send_message", (msg) => {
@@ -49,7 +42,7 @@ function initSocket(server) {
         msg,
         socket_id:socket.id
       }
-      socket.to(`chat_${msg.chat_id}`).emit("new_message", info);
+      socket.broadcast.emit("new_message", info);
     });
 
     socket.on("disconnect", () => {
