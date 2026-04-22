@@ -6,7 +6,7 @@ let io;
 
 function initSocket(server) {
   io = new Server(server, {
-    cors: { origin: "*" }
+    cors: { origin: "https://eliezermucaji.github.io/" }
   });
 
   io.on("connection", (socket) => {
